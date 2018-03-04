@@ -58,6 +58,7 @@ class bitcoind (
   $user_home                  = '/home/bitcoind',
   $service_ensure             = running,
   $service_enable             = true,
+#  $walletdir                  = 'not_set',
 ){
 
   # Hard-fail on anything that isn't Ubuntu
@@ -87,6 +88,7 @@ class bitcoind (
 
   validate_absolute_path($bitcoind_cmd)
   validate_absolute_path($user_home)
+#  validate_absolute_path($walletdir)
 
   validate_bool($allowreceivebyip)
   validate_bool($disablewallet)
