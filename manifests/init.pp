@@ -30,7 +30,6 @@ class bitcoind (
   $dbcache                    = 100,
   $gen                        = false,
   $group_name                 = 'bitcoind',
-  $install_gui                = false,
   $keypool                    = 100,
   $limitfreerelay             = 15,
   $minrelaytxfee              = 'not_set',
@@ -55,8 +54,6 @@ class bitcoind (
   $rpctimeout                 = '30',
   $rpcuser                    = 'bitcoind',
   $upnp                       = true,
-  $download_bitcoind_version  = 'not_set',
-  $download_bitcoind_arch     = 'x86_64-linux-gnu',
   $user_name                  = 'bitcoind',
   $user_home                  = '/home/bitcoind',
   $service_ensure             = running,
@@ -66,14 +63,6 @@ class bitcoind (
   # Hard-fail on anything that isn't Ubuntu
   if $::operatingsystem != 'Ubuntu' {
     fail('Unsupported operating system')
-  }
-
-  # Warn if install_gui and server are both true
-  if $install_gui == true and $server == true {
-    notify { 'bitcoind warning':
-      name     => 'install_gui and server are both set to true, server will be disabled!',
-      withpath => true,
-    }
   }
 
   if $rpcallowip != 'not_set' {
@@ -102,7 +91,6 @@ class bitcoind (
   validate_bool($allowreceivebyip)
   validate_bool($disablewallet)
   validate_bool($gen)
-  validate_bool($install_gui)
   validate_bool($testnet)
   validate_bool($txindex)
   validate_bool($rpcssl)
@@ -111,8 +99,6 @@ class bitcoind (
   validate_string($alertnotify)
   validate_string($bitcoind_datadir)
   validate_string($blocknotify)
-  validate_string($download_bitcoind_version)
-  validate_string($download_bitcoind_arch)
   validate_string($group_name)
   validate_string($minrelaytxfee)
   validate_string($paytxfee)
