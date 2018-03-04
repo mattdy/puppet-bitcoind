@@ -19,8 +19,8 @@
 #
 class bitcoind::install {
 
-  apt::ppa { 'puppet_bitcoin_ppa':
-    ensure => $::bitcoind::ppa,
+  apt::ppa { "${::bitcoind::ppa}":
+    ensure => "present",
   }
 
   exec { 'puppet_uninstall_bitcoind':
