@@ -38,6 +38,7 @@ class bitcoind (
   $maxuploadtarget            = 'not_set',
   $paytxfee                   = '0.00005',
   $peerbloomfilters           = true,
+  $ppa                        = 'ppa:bitcoin/bitcoin',
   $proxy                      = 'not_set',
   $server                     = true,
   $testnet                    = false,
@@ -54,7 +55,6 @@ class bitcoind (
   $rpctimeout                 = '30',
   $rpcuser                    = 'bitcoind',
   $upnp                       = true,
-  $use_bitcoin_classic        = false,
   $download_bitcoind_version  = 'not_set',
   $download_bitcoind_arch     = 'x86_64-linux-gnu',
   $user_name                  = 'bitcoind',
@@ -77,7 +77,7 @@ class bitcoind (
   }
 
   if $rpcallowip != 'not_set' {
-    validate_legacy('Stdlib::Compat::Array', 'validate_array', $rpcallowip)
+    validate_array($rpcallowip)
   }
 
   if $connect != 'not_set' and $addnode != 'not_set' {
@@ -85,45 +85,45 @@ class bitcoind (
   }
 
   if $connect != 'not_set' {
-    validate_legacy('Stdlib::Compat::Array', 'validate_array', $connect)
+    validate_array($connect)
   }
 
   if $addnode != 'not_set' {
-    validate_legacy('Stdlib::Compat::Array', 'validate_array', $addnode)
+    validate_array($addnode)
   }
 
   if $bitcoind_pidfile != 'not_set' {
-    validate_legacy('Stdlib::Compat::Absolute_Path', 'validate_absolute_path', $bitcoind_pidfile)
+    validate_absolute_path($bitcoind_pidfile)
   }
 
-  validate_legacy('Stdlib::Compat::Absolute_Path', 'validate_absolute_path', $bitcoind_cmd)
-  validate_legacy('Stdlib::Compat::Absolute_Path', 'validate_absolute_path', $user_home)
+  validate_absolute_path($bitcoind_cmd)
+  validate_absolute_path($user_home)
 
-  validate_legacy('Stdlib::Compat::Bool', 'validate_bool', $allowreceivebyip)
-  validate_legacy('Stdlib::Compat::Bool', 'validate_bool', $disablewallet)
-  validate_legacy('Stdlib::Compat::Bool', 'validate_bool', $gen)
-  validate_legacy('Stdlib::Compat::Bool', 'validate_bool', $install_gui)
-  validate_legacy('Stdlib::Compat::Bool', 'validate_bool', $testnet)
-  validate_legacy('Stdlib::Compat::Bool', 'validate_bool', $txindex)
-  validate_legacy('Stdlib::Compat::Bool', 'validate_bool', $rpcssl)
-  validate_legacy('Stdlib::Compat::Bool', 'validate_bool', $upnp)
-  validate_legacy('Stdlib::Compat::Bool', 'validate_bool', $use_bitcoin_classic)
+  validate_bool($allowreceivebyip)
+  validate_bool($disablewallet)
+  validate_bool($gen)
+  validate_bool($install_gui)
+  validate_bool($testnet)
+  validate_bool($txindex)
+  validate_bool($rpcssl)
+  validate_bool($upnp)
 
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $alertnotify)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $bitcoind_datadir)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $blocknotify)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $download_bitcoind_version)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $download_bitcoind_arch)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $group_name)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $minrelaytxfee)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $paytxfee)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $proxy)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $rpcpassword)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $rpcsslcertificatechainfile)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $rpcsslciphers)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $rpcsslprivatekeyfile)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $rpcuser)
-  validate_legacy('Stdlib::Compat::String', 'validate_string', $user_name)
+  validate_string($alertnotify)
+  validate_string($bitcoind_datadir)
+  validate_string($blocknotify)
+  validate_string($download_bitcoind_version)
+  validate_string($download_bitcoind_arch)
+  validate_string($group_name)
+  validate_string($minrelaytxfee)
+  validate_string($paytxfee)
+  validate_string($ppa)
+  validate_string($proxy)
+  validate_string($rpcpassword)
+  validate_string($rpcsslcertificatechainfile)
+  validate_string($rpcsslciphers)
+  validate_string($rpcsslprivatekeyfile)
+  validate_string($rpcuser)
+  validate_string($user_name)
 
   # Include all subclasses
   include ::bitcoind::params
